@@ -107,14 +107,14 @@ h1{font-size:26px;font-weight:600;letter-spacing:-0.5px;margin-bottom:4px}
 .save-btn:active{transform:scale(.98)}
 .save-btn:disabled{opacity:.5;cursor:not-allowed}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--border);border-radius:var(--rsm);padding:12px 20px;font-size:14px;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:transform .3s ease,opacity .3s;opacity:0;z-index:999;white-space:nowrap}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--border);border-radius:var(--rsm);padding:12px 20px;font-size:14px;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:transform .3s ease,opacity .3s;opacity:0;z-index:99999;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.ok{border-color:var(--green);color:var(--green)}
 .toast.err{border-color:var(--red);color:var(--red)}
 .toast.warn{border-color:var(--yellow);color:var(--yellow)}
 
 /* ===== Setup ===== */
-.setup-card{background:var(--card);border:1px solid var(--yellow);border-radius:var(--radius);padding:1.4rem;margin-bottom:1rem}
+.setup-card{display:none !important;}
 .setup-card.hidden{display:none}
 .setup-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--yellow);margin-bottom:8px}
 .url-row{display:flex;gap:8px;margin-bottom:6px}
@@ -129,7 +129,7 @@ h1{font-size:26px;font-weight:600;letter-spacing:-0.5px;margin-bottom:4px}
 /* Script modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.show{display:flex}
-.modal{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:600px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-legacy{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:600px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
 .modal-head{padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .modal-title{font-size:15px;font-weight:600}
 .modal-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
@@ -162,6 +162,178 @@ pre.code{background:var(--card2);border:1px solid var(--border);border-radius:va
 .link-btn:hover{border-color:var(--accent-l);color:var(--accent-l)}
 
 footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-height:1.8}
+
+/* ===========================
+[เพิ่มใหม่] History & Item Name Input Styles
+=========================== */
+.form-group{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+.form-group label{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:500;
+}
+.form-group input{
+    width:100%;
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:var(--rsm);
+    color:var(--text);
+    font-size:16px;
+    padding:9px 12px;
+    outline:none;
+    transition:border-color .15s,box-shadow .15s;
+}
+.form-group input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-g);
+}
+
+.history-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    margin-bottom:25px;
+}
+.history-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+.history-header h3{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+    color:var(--text);
+}
+.history-header button{
+    background:var(--accent);
+    color:white;
+    border:none;
+    border-radius:var(--rsm);
+    padding:6px 12px;
+    font-size:12px;
+    font-weight:500;
+    cursor:pointer;
+    transition:opacity .15s;
+}
+.history-header button:hover{
+    opacity:.9;
+}
+.history-item{
+    display:grid;
+    grid-template-columns:2fr 1.2fr 2fr 1fr;
+    gap:10px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+}
+.history-item:last-child{
+    border-bottom:none;
+}
+.history-name{
+    font-weight:bold;
+    color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.history-time{
+    color:var(--muted);
+    font-size:12px;
+}
+.history-date{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.3;
+}
+.history-remain{
+    text-align:right;
+    color:var(--green);
+    font-weight:bold;
+}
+.history-empty{
+    text-align:center;
+    color:var(--dim);
+    font-size:13px;
+    padding:15px 0;
+}
+
+/* ===========================
+[เพิ่มใหม่] Modal History Styles
+=========================== */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+}
+.modal.show{
+    display:flex;
+}
+.modal-content{
+    width:95%;
+    max-width:700px;
+    background:var(--card);
+    border:1px solid var(--border2);
+    border-radius:var(--radius);
+    padding:20px;
+    max-height:85vh;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+.modal-header h2{
+    font-size:18px;
+    font-weight:600;
+    color:var(--text);
+}
+.modal-header button{
+    border:none;
+    background:none;
+    font-size:20px;
+    cursor:pointer;
+    color:var(--muted);
+    padding:5px;
+}
+.modal-header button:hover{
+    color:var(--text);
+}
+#historySearch{
+    width:100%;
+    padding:10px 12px;
+    border-radius:var(--rsm);
+    background:var(--card2);
+    border:1px solid var(--border);
+    color:var(--text);
+    margin-bottom:15px;
+    outline:none;
+    font-size:14px;
+}
+#historySearch:focus{
+    border-color:var(--accent);
+}
+#historyAll{
+    overflow-y:auto;
+    flex:1;
+    padding-right:4px;
+}
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#7c6ff7">
@@ -176,8 +348,7 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
   </div>
   <p class="subtitle">คำนวณแล้วบันทึกลง Google Sheets แยกหมวดหมู่</p>
 
-  <!-- Setup warning -->
-  <div class="setup-card" id="setupWarn">
+  <div class="setup-card hidden" id="setupWarn">
     <div class="setup-title">⚠ ยังไม่ได้เชื่อม Google Sheets</div>
     <p class="setup-hint" style="margin-bottom:10px">ใส่ URL ของ Google Apps Script เพื่อเริ่มบันทึกข้อมูล (<a href="#" onclick="openModal('scriptModal');return false">ดูวิธีตั้งค่า</a>)</p>
     <div class="url-row">
@@ -186,8 +357,7 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     </div>
   </div>
 
-  <!-- Connected banner -->
-  <div class="setup-card hidden" id="connectedBanner" style="border-color:var(--green)">
+ <div class="setup-card hidden" id="connectedBanner" style="display:none;">
     <div class="setup-title" style="color:var(--green)">✓ เชื่อม Google Sheets แล้ว</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
       <a id="sheetLink" href="#" target="_blank" class="link-btn" style="display:none">📊 เปิด Google Sheet</a>
@@ -196,7 +366,6 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     </div>
   </div>
 
-  <!-- Clock -->
   <div class="clock-card">
     <div class="dot"></div>
     <div style="flex:1">
@@ -206,13 +375,32 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     <div class="be-pill" id="nowBE">พ.ศ. —</div>
   </div>
 
-  <!-- Calculator -->
-  <div class="card">
+  <div class="history-card">
+      <div class="history-header">
+          <h3>🕒 ประวัติ (5 รายการล่าสุด)</h3>
+          <div style="display:flex; gap:6px;">
+              <button id="openHistory" onclick="openHistoryModal()">ดูทั้งหมด</button>
+              <button onclick="clearHistory()" style="background:transparent; border:1px solid var(--border); color:var(--muted)">ล้าง</button>
+          </div>
+      </div>
+      <div id="historyList">
+          </div>
+  </div>
+
+  <h2>เวลาปัจจุบัน</h2>
+
+  <div class="card" style="margin-top: 10px;">
     <div class="sec-label">คำนวณเวลา</div>
     <div class="op-row">
       <button class="op-btn active" id="btnAdd" onclick="setOp('add')">➕ อนาคต (เพิ่ม)</button>
       <button class="op-btn" id="btnSub" onclick="setOp('sub')">➖ อดีต (ลบ)</button>
     </div>
+
+    <div class="form-group">
+        <label>ชื่อรายการ</label>
+        <input type="text" id="itemName" placeholder="เช่น Moon Bloom" autocomplete="off">
+    </div>
+
     <div class="grid4">
       <div class="field"><label>วัน</label><div class="inp-wrap"><input type="number" id="iDay" min="0" value="0" inputmode="numeric"><span class="unit">วัน</span></div><div class="stepper"><button class="sbtn" onclick="step('iDay',-1)">−</button><button class="sbtn" onclick="step('iDay',1)">+</button></div></div>
       <div class="field"><label>ชั่วโมง</label><div class="inp-wrap"><input type="number" id="iHour" min="0" value="0" inputmode="numeric"><span class="unit">ชม.</span></div><div class="stepper"><button class="sbtn" onclick="step('iHour',-1)">−</button><button class="sbtn" onclick="step('iHour',1)">+</button></div></div>
@@ -231,7 +419,6 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     <button class="calc-btn" onclick="calc()">คำนวณ →</button>
   </div>
 
-  <!-- Result -->
   <div class="result-card" id="resultCard">
     <div class="res-hero">
       <div class="res-big" id="rTime">—</div>
@@ -245,7 +432,6 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     </div>
   </div>
 
-  <!-- Save Panel -->
   <div class="save-panel" id="savePanel">
     <div class="sec-label">💾 บันทึกลง Google Sheets</div>
 
@@ -262,14 +448,10 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     <button class="manage-btn" onclick="openModal('catModal')">⚙ จัดการหมวดหมู่</button>
   </div>
 
-</div><!-- /container -->
+</div><div class="toast" id="toast"></div>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
-<!-- ===== Script Setup Modal ===== -->
 <div class="modal-overlay" id="scriptModal" onclick="closeModalOutside(event,'scriptModal')">
-  <div class="modal">
+  <div class="modal-legacy">
     <div class="modal-head">
       <span class="modal-title">⚙ วิธีเชื่อม Google Sheets</span>
       <button class="modal-close" onclick="closeModal('scriptModal')">×</button>
@@ -294,20 +476,19 @@ footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-he
     var ss   = SpreadsheetApp.getActiveSpreadsheet();
     var sh   = ss.getSheetByName("บันทึกเวลา") || ss.insertSheet("บันทึกเวลา");
 
-    // สร้าง header ถ้ายังไม่มี
     if (sh.getLastRow() === 0) {
       sh.appendRow([
-        "วันที่บันทึก","เวลาเริ่มต้น","วันที่ผลลัพธ์",
+        "ชื่อรายการ","วันที่บันทึก","เวลาเริ่มต้น","วันที่ผลลัพธ์",
         "เวลาผลลัพธ์","หมวดหมู่","ระยะเวลา","ประเภท"
       ]);
-      sh.getRange(1,1,1,7).setFontWeight("bold")
+      sh.getRange(1,1,1,8).setFontWeight("bold")
         .setBackground("#4a4af0").setFontColor("#ffffff");
       sh.setFrozenRows(1);
     }
 
     var d = JSON.parse(e.postData.contents);
     sh.appendRow([
-      d.savedAt, d.startTime, d.resultDate,
+      d.name, d.savedAt, d.startTime, d.resultDate,
       d.resultTime, d.category, d.duration, d.operation
     ]);
 
@@ -325,18 +506,19 @@ function doGet(e) {
   return ContentService
     .createTextOutput(JSON.stringify({status:"ready"}))
     .setMimeType(ContentService.MimeType.JSON);
-}
-<button class="copy-code-btn" onclick="copyCode()">Copy</button></pre>
-        <p style="font-size:12px;color:var(--muted);padding-left:32px">ข้อมูลที่จะบันทึก:</p>
+}</pre>
+        <button class="copy-code-btn" onclick="copyCode()">Copy</button>
+        <p style="font-size:12px;color:var(--muted);padding-left:32px;margin-top:5px;">ข้อมูลที่จะบันทึก:</p>
         <table class="col-table">
           <tr><th>คอลัมน์</th><th>ข้อมูล</th><th>ตัวอย่าง</th></tr>
-          <tr><td>A</td><td>วันที่บันทึก</td><td>2024-07-05 14:30</td></tr>
-          <tr><td>B</td><td>เวลาเริ่มต้น (ตอนนี้)</td><td>14:30:00 น.</td></tr>
-          <tr><td>C</td><td>วันที่ผลลัพธ์</td><td>6 กรกฎาคม 2567</td></tr>
-          <tr><td>D</td><td>เวลาผลลัพธ์</td><td>20:26:00 น.</td></tr>
-          <tr><td>E</td><td>หมวดหมู่</td><td>การทำงาน</td></tr>
-          <tr><td>F</td><td>ระยะเวลา</td><td>5 ชั่วโมง 56 นาที</td></tr>
-          <tr><td>G</td><td>ประเภท</td><td>เพิ่ม / ลบ</td></tr>
+          <tr><td>A</td><td>ชื่อรายการ</td><td>Moon Bloom</td></tr>
+          <tr><td>B</td><td>วันที่บันทึก</td><td>2024-07-05 14:30</td></tr>
+          <tr><td>C</td><td>เวลาเริ่มต้น (ตอนนี้)</td><td>14:30:00 น.</td></tr>
+          <tr><td>D</td><td>วันที่ผลลัพธ์</td><td>6 กรกฎาคม 2567</td></tr>
+          <tr><td>E</td><td>เวลาผลลัพธ์</td><td>20:26:00 น.</td></tr>
+          <tr><td>F</td><td>หมวดหมู่</td><td>การทำงาน</td></tr>
+          <tr><td>G</td><td>ระยะเวลา</td><td>5 ชั่วโมง 56 นาที</td></tr>
+          <tr><td>H</td><td>ประเภท</td><td>เพิ่ม / ลบ</td></tr>
         </table>
       </div>
 
@@ -371,9 +553,8 @@ function doGet(e) {
   </div>
 </div>
 
-<!-- ===== Category Manage Modal ===== -->
 <div class="modal-overlay" id="catModal" onclick="closeModalOutside(event,'catModal')">
-  <div class="modal" style="max-width:400px">
+  <div class="modal-legacy" style="max-width:400px; width: 100%;">
     <div class="modal-head">
       <span class="modal-title">📂 จัดการหมวดหมู่</span>
       <button class="modal-close" onclick="closeModal('catModal')">×</button>
@@ -384,6 +565,18 @@ function doGet(e) {
       <button class="calc-btn" style="margin-top:12px" onclick="saveCategories()">บันทึกหมวดหมู่</button>
     </div>
   </div>
+</div>
+
+<div id="historyModal" class="modal" onclick="closeModalOutside(event,'historyModal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>ประวัติทั้งหมด</h2>
+            <button id="closeHistory" onclick="closeHistoryModal()">✖</button>
+        </div>
+        <input type="text" id="historySearch" placeholder="ค้นหาชื่อ..." oninput="filterHistory()">
+        <div id="historyAll">
+            </div>
+    </div>
 </div>
 
 <footer>ทำงานออฟไลน์ · บันทึกลง Google Sheets ผ่าน Apps Script · เวลาจากอุปกรณ์ของคุณ</footer>
@@ -416,8 +609,8 @@ function init(){
   if(document.getElementById('sheetUrlInput')) document.getElementById('sheetUrlInput').value = su;
   if(document.getElementById('sheetUrlRow')) document.getElementById('sheetUrlRow').style.display = url ? 'block' : 'none';
   renderChips();
+  renderHistory(); // เรียกฟังก์ชันแสดงผลประวัติเมื่อโหลดหน้าเว็บ
 }
-init();
 
 // ===== Clock =====
 function pad(n,w=2){ return String(n).padStart(w,'0') }
@@ -463,15 +656,19 @@ function calc(){
   const now=new Date();
   const res=new Date(op==='add'?now.getTime()+ms:now.getTime()-ms);
 
-  // parts label
   const parts=[];
   if(d) parts.push(d+' วัน');
-  if(h) parts.push(h+' ชั่วโมง');
-  if(m) parts.push(m+' นาที');
-  if(s) parts.push(s+' วินาที');
-  const dur = parts.join(' ') || '0 วินาที';
+  if(h) parts.push(h+' ชม.');
+  if(m) parts.push(m+' น.');
+  if(s) parts.push(s+' วิ.');
+  const dur = parts.join(' ') || '0 วิ.';
+
+  // ดึงชื่อรายการที่ผู้ใช้กรอก
+  const nameInput = document.getElementById('itemName');
+  const itemName = nameInput ? nameInput.value.trim() : '';
 
   lastResult = {
+    name: itemName || 'ไม่มีชื่อรายการ',
     savedAt: now.toLocaleString('th-TH'),
     startTime: fmtFull(now)+' น.',
     resultDate: fmtDateTH(res,true),
@@ -479,6 +676,9 @@ function calc(){
     duration: dur,
     operation: op==='add'?'เพิ่ม':'ลบ'
   };
+
+  // บันทึกลง LocalStorage ประวัติระบบเว็บด้วย
+  saveToLocalHistory(lastResult);
 
   // UI
   document.getElementById('rTime').textContent=pad(res.getHours())+':'+pad(res.getMinutes())+':'+pad(res.getSeconds())+' น.';
@@ -505,9 +705,6 @@ function renderChips(){
     btn.className='cat-chip'+(c===selectedCat?' sel':'');
     btn.textContent=c;
     btn.onclick=()=>{
-      if(c==='อื่นๆ'||!DEFAULT_CATS.includes(c)){
-        // treat as custom if not in default or is อื่นๆ
-      }
       selectedCat=c;
       document.querySelectorAll('.cat-chip').forEach(x=>x.classList.remove('sel'));
       btn.classList.add('sel');
@@ -517,7 +714,6 @@ function renderChips(){
     };
     wrap.appendChild(btn);
   });
-  // Add custom chip
   const custom=document.createElement('button');
   custom.className='cat-chip custom-chip';
   custom.textContent='+ พิมพ์เอง';
@@ -531,7 +727,7 @@ function renderChips(){
   wrap.appendChild(custom);
 }
 
-// ===== Save =====
+// ===== Save To Sheets =====
 async function saveToSheets(){
   const url=getUrl();
   if(!url){ showToast('warn','⚠ กรอก URL ของ Apps Script ก่อน'); return; }
@@ -624,7 +820,7 @@ function openModal(id){
   if(id==='catModal') openCatModal();
 }
 function closeModal(id){ document.getElementById(id).classList.remove('show') }
-function closeModalOutside(e,id){ if(e.target.id===id) closeModal(id) }
+function closeModalOutside(e,id){ if(e.target.id===id) { if(id==='historyModal') { closeHistoryModal(); } else { closeModal(id); } } }
 
 // ===== Toast =====
 let toastTimer;
@@ -640,6 +836,103 @@ function copyCode(){
   const code=document.getElementById('scriptCode').textContent;
   navigator.clipboard.writeText(code).then(()=>showToast('ok','✓ คัดลอกโค้ดแล้ว'));
 }
+
+// ========================================================
+// [เพิ่มใหม่] ฟังก์ชันระบบจัดเก็บประวัติและการแสดงผล (JavaScript History Engine)
+// ========================================================
+function getLocalHistory(){
+  return JSON.parse(localStorage.getItem('calc_history') || '[]');
+}
+
+function saveToLocalHistory(item){
+  let hist = getLocalHistory();
+  hist.unshift(item); // ใส่ประวัติใหม่ไว้บนสุด
+  localStorage.setItem('calc_history', JSON.stringify(hist));
+  renderHistory();
+}
+
+function clearHistory(){
+  if(confirm('คุณต้องการล้างประวัติทั้งหมดใช่หรือไม่?')) {
+    localStorage.removeItem('calc_history');
+    renderHistory();
+    showToast('ok','✓ ล้างประวัติทั้งหมดแล้ว');
+  }
+}
+
+function createHistoryRowHtml(h){
+  const colorStyle = h.operation === 'เพิ่ม' ? 'var(--green)' : 'var(--red)';
+  return `
+    <div class="history-item">
+        <div class="history-name" title="${h.name}">${h.name}</div>
+        <div class="history-time" style="color: ${colorStyle}">${h.operation}</div>
+        <div class="history-date">${h.resultDate}<br><span style="font-size:11px;color:var(--muted)">${h.resultTime}</span></div>
+        <div class="history-remain" style="color: ${colorStyle}">${h.duration}</div>
+    </div>
+  `;
+}
+
+function renderHistory(){
+  const hist = getLocalHistory();
+  
+  // 1. เรนเดอร์ 5 รายการล่าสุดที่หน้าแรก
+  const list5 = document.getElementById('historyList');
+  if(list5){
+    list5.innerHTML = '';
+    if(hist.length === 0){
+      list5.innerHTML = '<div class="history-empty">(ยังไม่มีรายการ)</div>';
+    } else {
+      const top5 = hist.slice(0, 5);
+      top5.forEach(h => {
+         list5.insertAdjacentHTML('beforeend', createHistoryRowHtml(h));
+      });
+    }
+  }
+  
+  // 2. เรนเดอร์ลงในหน้าต่างประวัติทั้งหมด (Popup Modal)
+  renderAllHistoryList(hist);
+}
+
+function renderAllHistoryList(hist){
+  const listAll = document.getElementById('historyAll');
+  if(!listAll) return;
+  listAll.innerHTML = '';
+  
+  const searchInput = document.getElementById('historySearch');
+  const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  
+  const filtered = hist.filter(h => h.name.toLowerCase().includes(q));
+  
+  if(filtered.length === 0){
+    listAll.innerHTML = '<div class="history-empty">ไม่พบข้อมูลประวัติ</div>';
+    return;
+  }
+  
+  filtered.forEach(h => {
+    listAll.insertAdjacentHTML('beforeend', createHistoryRowHtml(h));
+  });
+}
+
+function filterHistory(){
+  renderAllHistoryList(getLocalHistory());
+}
+
+function openHistoryModal(){
+  const m = document.getElementById('historyModal');
+  if(m) {
+    m.classList.add('show');
+    const searchInput = document.getElementById('historySearch');
+    if(searchInput) searchInput.value = '';
+    renderHistory();
+  }
+}
+
+function closeHistoryModal(){
+  const m = document.getElementById('historyModal');
+  if(m) m.classList.remove('show');
+}
+
+// เริ่มการทำงานระบบหลัก
+init();
 </script>
 <script>
 if ("serviceWorker" in navigator) {
