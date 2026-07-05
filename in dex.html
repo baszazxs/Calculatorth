@@ -163,6 +163,9 @@ pre.code{background:var(--card2);border:1px solid var(--border);border-radius:va
 
 footer{margin-top:2rem;font-size:12px;color:var(--dim);text-align:center;line-height:1.8}
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#7c6ff7">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
 <div class="container">
@@ -636,6 +639,11 @@ function showToast(type,msg){
 function copyCode(){
   const code=document.getElementById('scriptCode').textContent;
   navigator.clipboard.writeText(code).then(()=>showToast('ok','✓ คัดลอกโค้ดแล้ว'));
+}
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js");
 }
 </script>
 </body>
